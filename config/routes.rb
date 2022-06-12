@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  get 'messages/index'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords',
-    registrations: 'students/registrations'
+    registrations: 'users/registrations'
   }
 
   devise_for :advisers, controller:{
@@ -10,5 +11,12 @@ Rails.application.routes.draw do
     passwords: 'advisers/passwords',
     registrations: 'advisers/registrations'
   }
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  root to: "rooms#index"
+
+  resources :users, only: [:edit, :update]
+  resources :advisers, only: [:edit, :update]
+  resources :room, only: [:new, :create, :destroy] do
+    resources :messages, only: [:index, :create]
+  end
 end
