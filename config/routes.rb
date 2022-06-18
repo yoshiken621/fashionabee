@@ -13,9 +13,10 @@ Rails.application.routes.draw do
 
   root to: "tops#index"
 
-  resources :users, only: [:edit, :update]
+  resources :users, only: [:index, :edit, :update]
   resources :advisers, only: [:edit, :update]
   resources :rooms, only: [:new, :show, :create, :destroy] do
     resources :messages, only: [:create]
   end
+  resources :items
 end

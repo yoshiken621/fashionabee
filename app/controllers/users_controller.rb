@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  def edit
+  def index
+    @items = Item.all
   end
 
   def update

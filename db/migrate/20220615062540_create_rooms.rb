@@ -3,7 +3,6 @@ class CreateRooms < ActiveRecord::Migration[6.0]
     create_table :rooms do |t|
       t.references :user, null: false, foreign_key: true
       t.references :adviser, null: false, foreign_key: true
-
       t.timestamps
     end
   end

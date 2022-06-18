@@ -28,7 +28,7 @@
   <h2>ユーザー一覧</h2>
   <br>
   <% @users.each do |user| %>
-    <%= user.nickname %>
+    <%= link_to user.nickname, users_path %>
     <% if @user_ids.include?(user.id) %>
       <br>
       <%= link_to "チャットへ", room_path(current_adviser.rooms.find_by(user_id: user.id)) %><br>
