@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'messages/index'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords',
@@ -12,11 +11,11 @@ Rails.application.routes.draw do
     registrations: 'advisers/registrations'
   }
 
-  root to: "rooms#index"
+  root to: "tops#index"
 
   resources :users, only: [:edit, :update]
   resources :advisers, only: [:edit, :update]
-  resources :room, only: [:new, :create, :destroy] do
-    resources :messages, only: [:index, :create]
+  resources :rooms, only: [:new, :show, :create, :destroy] do
+    resources :messages, only: [:create]
   end
 end

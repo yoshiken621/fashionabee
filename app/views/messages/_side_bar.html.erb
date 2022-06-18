@@ -1,9 +1,9 @@
 <div class="side-bar-header">
   <div class="header-name">
-    <% if users_signed_in? %>
+    <% if user_signed_in? %>
       <%= link_to current_user.nickname, edit_user_registration_path(current_user) %>
-    <% elsif advisers_signed_in? %>
-      <%= link_to current_user.nickname, edit_adviser_registration_path(current_user) %>
+    <% elsif adviser_signed_in? %>
+      <%= link_to current_adviser.nickname, edit_adviser_registration_path(current_user) %>
     <% end %>
   </div>
   <div class="create-room">
@@ -15,12 +15,12 @@
   <% current_user.rooms.each do |room| %>
     <div class="room">
       <div class="room-name">
-        <% if users_signed_in? %>
-          <%= link_to room.advisers.nickname, room_messages_path(room)%>
-        <% elsif advisers_signed_in? %>
-          <%= link_to room.users.nickname, room_messages_path(room)%>
+        <% if user_signed_in? %>
+          <%= link_to room.adviser.nickname, room_messages_path(room)%>
+        <% elsif adviser_signed_in? %>
+          <%= link_to room.user.nickname, room_messages_path(room)%>
         <% end %>
       </div>
     </div>
-  <% end %>
+  <% end %>  
 </div>

@@ -7,12 +7,42 @@ class RoomsController < ApplicationController
     @room = Room.new
   end 
 
-  def create
-    @room = Room.new(room_params)
-    if @room.save
-      redirect_to root_path
+  def show
+    @room = Room.find(params[:id]) 
+    @message = Message.new 
+    @messages = @room.messages 
+    if user_signed_in?
+      if @room.user.id == current_user.id
+        @adviser = @room.adviser
+      else
+        redirect_to "/"
+      end
+    elsif adviser_signed_in?
+      if @room.adviser.id == current_adviser.id
+        @user = @room.user
+      else
+        redirect_to "/"
+      end
     else
-      render :new
+      redirect_to "/"
+    end
+  end
+
+  def create
+    if user_signed_in?
+      @room = Room.new(room_adviser_params)
+      @room.user_id = current_user.id
+    elsif adviser_signed_in?
+      @room = Room.new(room_user_params)
+      @room.adviser_id = current_adviser.id
+    else
+      redirect_to "/"
+    end
+
+    if @room.save
+      redirect_to :action => "show", :id => @room.id
+    else
+      redirect_to "/"
     end
   end
 
@@ -24,11 +54,12 @@ class RoomsController < ApplicationController
 
   private
 
-  def room_params
-    if user_signed_in?
-      params.require(:room).permit(users_id: current_user.id)
-    elsif adviser_signed_in?
-      params.require(:room).permit(advisers_id: current_adviser.id)
-    end
+  private
+  def room_adviser_params
+    params.require(:room).permit(:adviser_id)
+  end
+
+  def room_user_params
+    params.require(:room).permit(:user_id)
   end
 end

@@ -16,3 +16,10 @@
  * {
   box-sizing: border-box;
 }
+.left-message{
+  text-align: left;
+}
+
+.right-message{
+  text-align: right;
+}

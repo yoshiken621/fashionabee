@@ -7,6 +7,5 @@ class Adviser < ApplicationRecord
   validates :nickname, presence: true
 
   has_many :rooms
-  has_many :messages
   has_one_attached :image
 end

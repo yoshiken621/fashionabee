@@ -1,0 +1,51 @@
+<h1>チャットサンプル</h1>
+<!--Userでログインしてたら-->
+<% if user_signed_in? %>
+  ~<%= current_user.nickname %>がログインしてます~
+  <%= link_to "ログアウト", destroy_user_session_path ,:method => :delete %>
+  <br>
+  <h2>アドバイザー一覧</h2>
+  <br>
+
+  <% @advisers.each do |adviser| %>
+    <%= adviser.nickname %>
+    <% if @adviser_ids.include?(adviser.id) %>
+      <br>
+      <%= link_to "チャットへ", room_path(current_user.rooms.find_by(adviser: adviser.id)) %><br>
+    <% else %>
+      <%= form_for Room.new do |f| %>
+        <%= f.hidden_field :adviser_id, :value => adviser.id %> 
+        <%= f.submit %>
+      <% end %> 
+    <% end %>
+  <% end %>
+
+<!--adviserでログインしてたら-->
+<% elsif adviser_signed_in? %>
+  ~<%= current_adviser.nickname %>がログインしてます~
+  <%= link_to "ログアウト", destroy_adviser_session_path ,:method => :delete %>
+  <br>
+  <h2>ユーザー一覧</h2>
+  <br>
+  <% @users.each do |user| %>
+    <%= user.nickname %>
+    <% if @user_ids.include?(user.id) %>
+      <br>
+      <%= link_to "チャットへ", room_path(current_adviser.rooms.find_by(user_id: user.id)) %><br>
+    <% else %>
+      <%= form_for Room.new do |f| %>
+        <%= f.hidden_field :user_id, :value => user.id %> 
+        <%= f.submit %>
+      <% end %> 
+    <% end %>
+  <% end %>
+
+<!--ログインしてなかったら-->
+<% else %>
+  <h3>ユーザー</h3>
+  <%= link_to "ログイン", new_user_session_path %>
+  <%= link_to "新規登録", new_user_registration_path %>
+  <h3>ショップ</h3>
+  <%= link_to "ログイン", new_adviser_session_path %>
+  <%= link_to "新規登録", new_adviser_registration_path %>
+<% end %>

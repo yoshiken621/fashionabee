@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
-  has_one :user
-  has_one :adviser
+  belongs_to :user
+  belongs_to :adviser
   has_many :messages, dependent: :destroy
 end
