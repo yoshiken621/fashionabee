@@ -39,7 +39,10 @@
   </div>
 <% end %>
 
-<%= form_for [@room, @message] do |f| %>
-  <%= f.text_field :content %>
+<%= form_with model: [@room, @message], class: 'form', local: true do |f| %>
+  <div class="form-input">
+    <%= f.text_field :content %>
+    <label class="form-image">
+    
   <%= f.submit "メッセージを送る"%>
 <% end %>
