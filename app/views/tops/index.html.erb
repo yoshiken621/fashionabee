@@ -3,6 +3,7 @@
 <% if user_signed_in? %>
   ~<%= current_user.nickname %>がログインしてます~
   <%= link_to "ログアウト", destroy_user_session_path ,:method => :delete %>
+  <%= link_to '服登録', new_item_path %>
   <br>
   <h2>アドバイザー一覧</h2>
   <br>
@@ -24,6 +25,7 @@
 <% elsif adviser_signed_in? %>
   ~<%= current_adviser.nickname %>がログインしてます~
   <%= link_to "ログアウト", destroy_adviser_session_path ,:method => :delete %>
+  <%= link_to '服登録', new_item_path %>
   <br>
   <h2>ユーザー一覧</h2>
   <br>

@@ -11,9 +11,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+    @item = @user.item
+  end
+
   private
 
-  def adviser_params
+  def user_params
     params.require(:users).permit(:nickname, :email, :image)
   end
 end
