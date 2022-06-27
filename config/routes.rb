@@ -15,8 +15,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :edit, :update]
   resources :advisers, only: [:edit, :update]
+  resources :item_selects, only: [:new, :create]
+  resources :tops_items
   resources :rooms, only: [:new, :show, :create, :destroy] do
     resources :messages, only: [:create]
   end
-  resources :items
 end

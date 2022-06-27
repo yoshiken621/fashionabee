@@ -8,5 +8,5 @@ class User < ApplicationRecord
   
   has_many :rooms
   has_one_attached :image
-  has_many :items
+  has_one :tops_item
 end

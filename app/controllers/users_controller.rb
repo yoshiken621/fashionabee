@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @items = Item.all
+    @tops_item = TopsItem.all
   end
 
   def update

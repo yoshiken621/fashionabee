@@ -10,7 +10,12 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id]) 
     @message = Message.new 
-    @messages = @room.messages 
+    @messages = @room.messages
+    @selected_item = ItemSelect.where(adviser_id: @room.adviser_id).where(user_id: @room.user_id).pluck(:tops_item_id)
+    @tops_item = TopsItem.find_by(user_id: @room.user_id)
+    if @selected_item.present?
+      @image = @tops_item.images.find_by(blob_id: @selected_item)
+    end
     if user_signed_in?
       if @room.user.id == current_user.id
         @adviser = @room.adviser

@@ -1,0 +1,17 @@
+<%= form_with url: item_selects_path, id: 'new_post', local: true do |f| %>
+  <div style="display: flex; flex-wrap: wrap; width: 750px;">
+    <% @user.tops_item.images.each do |image| %>
+      <div style="display: flex; margin:5px 5px 5px 0;" class="image-field">
+        <%= f.check_box :tops_item_id, { multiple: false }, image.id, false %>
+          <label for="tops_item_id_<%= image.id %>">
+            <%= image_tag image, size: '50*50'%>
+          </label>
+      </div>
+    <% end %>
+    <%= f.hidden_field :adviser_id, value: current_adviser.id %>
+    <%= f.hidden_field :user_id, value: @user.id %>
+    <div class="submit-btn">
+      <%= f.submit '送信' %>
+    </div>
+  </div>
+<% end %>

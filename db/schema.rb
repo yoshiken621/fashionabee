@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_18_153657) do
+ActiveRecord::Schema.define(version: 2022_06_23_064403) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -47,11 +47,13 @@ ActiveRecord::Schema.define(version: 2022_06_18_153657) do
     t.index ["reset_password_token"], name: "index_advisers_on_reset_password_token", unique: true
   end
 
-  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
+  create_table "item_selects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "tops_item_id", null: false
+    t.bigint "adviser_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_items_on_user_id"
+    t.index ["adviser_id"], name: "index_item_selects_on_adviser_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -72,6 +74,13 @@ ActiveRecord::Schema.define(version: 2022_06_18_153657) do
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
+  create_table "tops_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tops_items_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "email", default: "", null: false
@@ -86,8 +95,9 @@ ActiveRecord::Schema.define(version: 2022_06_18_153657) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "items", "users"
+  add_foreign_key "item_selects", "advisers"
   add_foreign_key "messages", "rooms"
   add_foreign_key "rooms", "advisers"
   add_foreign_key "rooms", "users"
+  add_foreign_key "tops_items", "users"
 end

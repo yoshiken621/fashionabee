@@ -8,4 +8,6 @@ class Adviser < ApplicationRecord
 
   has_many :rooms
   has_one_attached :image
+  has_many :tops_items, through: :item_selects
+  has_many :item_selects
 end

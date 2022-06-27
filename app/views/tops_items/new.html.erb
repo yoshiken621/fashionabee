@@ -1,0 +1,11 @@
+<%= form_with model: @tops_item, id: 'new_post', local: true do |f| %>
+  <div class="image-field">
+    <div id="previews"></div>
+    <div class="click-upload">
+      <%= f.file_field :images, name: 'tops_item[images][]', data: {index: 0} %>
+    </div>
+  </div>
+  <div class="submit-btn">
+    <%= f.submit '送信' %>
+  </div>
+<% end %>

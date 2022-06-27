@@ -1,8 +1,8 @@
 <h3>トップページ</h3>
-<h3><%= link_to '新規投稿', new_item_path%></h3>
-<% @items.each do |item| %>
+<h3><%= link_to '新規投稿', new_tops_items_path%></h3>
+<% @tops_item.each do |tops| %>
   <div class="posted-content">
-    <%= image_tag item.images[0] %><br>
+    <%= image_tag tops.images[0] %><br>
     <%= link_to '詳細', item_path(item.id)%>
   </div>
 <% end %>
